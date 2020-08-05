@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>Calculator</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style type="text/css">
+		div.result {
+			border: 1px solid black;
+			color: red;
+			text-align: right;
+		}
+	</style>
+  </head>
+<body>
+  <br>
+  <div class="container">
+  	<div class="row col-sm-8">
+  	  <div class="result col-sm-6">0</div>
+  	  <button class="action cancel btn-warning col-sm-2">C</button>
+  	</div>
+  	<br>
+  	<div class="row col-sm-8">
+  	  <button class="number col-sm-2">7</button>
+	  <button class="number col-sm-2">8</button>
+	  <button class="number col-sm-2">9</button>
+	  <button class="action divide col-sm-2">/</button>
+  	</div>
+  	<div class="row col-sm-8">
+  	  <button class="number col-sm-2">4</button>
+	  <button class="number col-sm-2">5</button>
+	  <button class="number col-sm-2">6</button>
+	  <button class="action multiply col-sm-2">*</button>
+  	</div>
+  	<div class="row col-sm-8">
+  	  <button class="number col-sm-2">1</button>
+	  <button class="number col-sm-2">2</button>
+	  <button class="number col-sm-2">3</button>
+	  <button class="action minus col-sm-2">-</button>
+  	</div>
+  	<div class="row col-sm-8">
+  	  <button class="action dot col-sm-2">,</button>
+  	  <button class="number col-sm-2">0</button>
+  	  <button class="action equal btn-primary col-sm-2">=</button>
+  	  <button class="action plus col-sm-2">+</button>
+  	</div>
+  </div>
+  <script type="text/javascript">
+  	let tempEqual;
+  	let tempAction;
+  	let tempNumber;
+      
+      let buttons = document.querySelectorAll("button.number");
+      function ClickHandler(event) {
+      	if (document.querySelector("div.result").innerHTML === "0" || tempEqual === "1") {
+        document.querySelector("div.result").innerHTML = event.target.innerHTML;
+        tempEqual = "0";
+      	}
+      	else if (document.querySelector("div.result").innerHTML.length <= 25 ) {
+      	document.querySelector("div.result").innerHTML = document.querySelector("div.result").innerHTML + event.target.innerHTML;
+      	}
+        }
+      for (const button of buttons) {
+	  button.addEventListener("click", ClickHandler);
+      }
+
+      let plus = document.querySelector("button.action.plus");
+      function Addition (event){
+        tempNumber = document.querySelector("div.result").innerHTML;
+        tempAction = "+";
+   	    document.querySelector("div.result").innerHTML = "";
+        }
+      plus.addEventListener("click", Addition);
+
+      let minus = document.querySelector("button.action.minus");
+      function Subtraction (event){
+        tempNumber = document.querySelector("div.result").innerHTML;
+        tempAction = "-";
+   	    document.querySelector("div.result").innerHTML = "";
+        }
+      minus.addEventListener("click", Subtraction);
+
+      let multiply = document.querySelector("button.action.multiply");
+      function Multipling (event){
+        tempNumber = document.querySelector("div.result").innerHTML;
+        tempAction = "*";
+   	    document.querySelector("div.result").innerHTML = "";
+        }
+      multiply.addEventListener("click", Multipling);
+
+      let divide = document.querySelector("button.action.divide");
+      function Dividing (event){
+        tempNumber = document.querySelector("div.result").innerHTML;
+        tempAction = "/";
+   	    document.querySelector("div.result").innerHTML = "";
+        }
+      divide.addEventListener("click", Dividing);
+
+      let dot = document.querySelector("button.action.dot");
+      function Doting (event){
+      	if ((document.querySelector("div.result").innerHTML[document.querySelector("div.result").innerHTML.length - 1]) != ".") {
+      	document.querySelector("div.result").innerHTML = document.querySelector("div.result").innerHTML + ".";
+      	}
+        }
+      dot.addEventListener("click", Doting);
+
+      let cancel = document.querySelector("button.action.cancel");
+      function Canceling (event){
+        document.querySelector("div.result").innerHTML = "0";
+        tempAction = "";
+        tempEqual = "0";
+        }
+      cancel.addEventListener("click", Canceling);
+
+      let equal = document.querySelector("button.action.equal");
+      function Result (event){
+        if (tempAction === "+") {
+        document.querySelector("div.result").innerHTML = Number(tempNumber) + Number(document.querySelector("div.result").innerHTML);
+        tempAction = "";
+        tempEqual = "1";
+        }
+        else if (tempAction === "-") {
+        document.querySelector("div.result").innerHTML = Number(tempNumber) - Number(document.querySelector("div.result").innerHTML);
+        tempAction = "";
+        tempEqual = "1";
+        }
+        else if (tempAction === "*") {
+        document.querySelector("div.result").innerHTML = Number(tempNumber) * Number(document.querySelector("div.result").innerHTML);
+        tempAction = "";
+        tempEqual = "1";
+        }
+        else if (tempAction === "/") {
+        document.querySelector("div.result").innerHTML = Number(tempNumber) / Number(document.querySelector("div.result").innerHTML);
+        tempAction = "";
+        tempEqual = "1";
+        }
+      }
+      equal.addEventListener("click", Result);
+
+
+  </script>
+</body>
